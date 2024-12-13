@@ -2,6 +2,7 @@ package com.example.API_endpoint;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -12,7 +13,8 @@ import java.util.Map;
 public class EchoController {
     //Define endpoint
     @PostMapping("/echo/{customerNumber}")
-    public Map<String, Object> echo(@RequestHeader Map<String, String> headers) {
+    public Map<String, Object> echo(@RequestHeader Map<String, String> headers,
+                                    @RequestParam(required = false) String DBG) {
         // create response map
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
@@ -30,8 +32,16 @@ public class EchoController {
             }
         }
 
-        //Add current UNIX timestamp in seconds to response
+        //Add current timestamp epoch in seconds to response
         response.put("uts",System.currentTimeMillis()/1000);
+
+        //@RequestParam accepts query parameters
+        //Include DBG in the response body if it exists
+        if (DBG != null) {
+            response.put("DBG", DBG);
+            //Log the value of DBG
+            System.out.println("DBG: " + DBG);
+        }
 
         return response;
     }
