@@ -3,6 +3,7 @@ package com.example.API_endpoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // Rest Controller for endpoint
@@ -49,6 +50,17 @@ public class EchoController {
 
         //@RequestBody deserializes and then maps the request body to a generic object
         response.put("request",requestBody);
+
+        //Include type of request body to response
+        if (requestBody instanceof List) {
+            response.put("type", "array");
+        } else if (requestBody instanceof Map) {
+            response.put("type", "object");
+        } else if (requestBody instanceof String) {
+            response.put("type", "string");
+        } else {
+            response.put("type", "unknown");
+        }
 
         return response;
     }
