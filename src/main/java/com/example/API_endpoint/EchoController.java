@@ -12,7 +12,8 @@ public class EchoController {
     @PostMapping("/echo/{customerNumber}")
     public Map<String, Object> echo(@RequestHeader Map<String, String> headers,
                                     @RequestParam(required = false) String DBG,
-                                    @PathVariable String customerNumber) {
+                                    @PathVariable String customerNumber,
+                                    @RequestBody Object requestBody) {
         // create response map
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
@@ -45,6 +46,9 @@ public class EchoController {
         response.put("customerNo", customerNumber);
         // Log customerNumber
         if(customerNumber!=null)System.out.println("customerNumber:"+customerNumber);
+
+        //@RequestBody deserializes and then maps the request body to a generic object
+        response.put("request",requestBody);
 
         return response;
     }
