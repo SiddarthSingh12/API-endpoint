@@ -2,7 +2,7 @@ API-endpoint
 Spring Boot application implementing an API endpoint /echo/{customerNumber}
 
 Requirements
-Java 17 or higher
+Java 23 or higher
 Maven 3.6+ for dependency management and building the project
 
 Instructions 
