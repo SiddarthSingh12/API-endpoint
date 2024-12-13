@@ -30,6 +30,9 @@ public class EchoController {
             }
         }
 
+        //Add current UNIX timestamp in seconds to response
+        response.put("uts",System.currentTimeMillis()/1000);
+
         return response;
     }
 }
