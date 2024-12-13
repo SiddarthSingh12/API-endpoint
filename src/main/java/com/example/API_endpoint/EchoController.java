@@ -1,9 +1,6 @@
 package com.example.API_endpoint;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +11,8 @@ public class EchoController {
     //Define endpoint
     @PostMapping("/echo/{customerNumber}")
     public Map<String, Object> echo(@RequestHeader Map<String, String> headers,
-                                    @RequestParam(required = false) String DBG) {
+                                    @RequestParam(required = false) String DBG,
+                                    @PathVariable String customerNumber) {
         // create response map
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
@@ -42,6 +40,11 @@ public class EchoController {
             //Log the value of DBG
             System.out.println("DBG: " + DBG);
         }
+
+        //@PathVariable gets customerNumber from URL and include it in the response
+        response.put("customerNo", customerNumber);
+        // Log customerNumber
+        if(customerNumber!=null)System.out.println("customerNumber:"+customerNumber);
 
         return response;
     }
